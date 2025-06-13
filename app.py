@@ -4,6 +4,7 @@ from PIL import Image
 import os, re, json
 from dotenv import load_dotenv
 from typing import Tuple
+import io
 
 load_dotenv()
 app = Flask(__name__)
@@ -14,6 +15,14 @@ if not API_KEY:
 genai.configure(api_key=API_KEY)
 
 _JSON_RE = re.compile(r'```(?:json)?\s*([\s\S]*?)\s*```', re.I)
+
+def optimize_image(image: Image.Image, max_size: int = 1024) -> Image.Image:
+    """Optimize image size while maintaining aspect ratio"""
+    if max(image.size) > max_size:
+        ratio = max_size / max(image.size)
+        new_size = tuple(int(dim * ratio) for dim in image.size)
+        image = image.resize(new_size, Image.Resampling.LANCZOS)
+    return image
 
 def extract_json(text: str) -> dict:
     """
@@ -30,9 +39,11 @@ def extract_json(text: str) -> dict:
         return {"error": "No nutritional data found. Please try another image or check the API response.", "original_response": text}
     return json.loads(brace.group(0))            
 
-
 def analyze_food(image: Image.Image) -> dict:
     """Call Gemini, make sure we come back with a dict, not a string."""
+    # Optimize image before processing
+    image = optimize_image(image)
+    
     prompt = (
         "Analyze this food image and return JSON only:\n"
         "{"
@@ -46,8 +57,8 @@ def analyze_food(image: Image.Image) -> dict:
         "}"
     )
 
-    model   = genai.GenerativeModel('gemini-1.5-flash')
-    result  = model.generate_content([prompt, image])
+    model = genai.GenerativeModel('gemini-1.5-flash')
+    result = model.generate_content([prompt, image])
     return extract_json(result.text)             
 
 @app.route('/')
@@ -64,7 +75,9 @@ def analyze() -> Tuple[dict, int]:
         return jsonify(error="Invalid file"), 400
 
     try:
-        with Image.open(file.stream) as img:
+        # Read image into memory efficiently
+        image_data = file.read()
+        with Image.open(io.BytesIO(image_data)) as img:
             data = analyze_food(img)              
             return jsonify(data)                  
     except Exception as e:
