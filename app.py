@@ -8,7 +8,7 @@ import io
 import logging
 import traceback
 
-# Configure logging
+
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
@@ -55,7 +55,7 @@ def extract_json(text: str) -> dict:
 def analyze_food(image: Image.Image) -> dict:
     """Call Gemini, make sure we come back with a dict, not a string."""
     try:
-        # Optimize image before processing
+       
         image = optimize_image(image)
         
         prompt = (
@@ -99,7 +99,7 @@ def analyze() -> Tuple[dict, int]:
 
         logger.info(f"Processing file: {file.filename}")
         
-        # Read image into memory efficiently
+       
         image_data = file.read()
         if not image_data:
             logger.error("Empty file data")
