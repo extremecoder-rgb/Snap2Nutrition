@@ -13,9 +13,6 @@ if not API_KEY:
     raise RuntimeError("GEMINI_API_KEY not found")
 genai.configure(api_key=API_KEY)
 
-# ------------------------------------------------------------------
-# Utility: extract *first* JSON object from Gemini's text
-# ------------------------------------------------------------------
 _JSON_RE = re.compile(r'```(?:json)?\s*([\s\S]*?)\s*```', re.I)
 
 def extract_json(text: str) -> dict:
@@ -23,17 +20,17 @@ def extract_json(text: str) -> dict:
     Pull the first {...} block out of `text`, strip any markdown fence,
     and return it as a Python dict. If no JSON is found, return a default error dictionary.
     """
-    # Try code‑fence first
+    
     m = _JSON_RE.search(text)
-    candidate = m.group(1) if m else text        # fall back to whole text
-    # Grab the first bracketed section –
+    candidate = m.group(1) if m else text       
+   
     brace = re.search(r'\{[\s\S]*\}', candidate)
     if not brace:
         app.logger.error(f"No JSON object found in model response. Raw text: {text}")
         return {"error": "No nutritional data found. Please try another image or check the API response.", "original_response": text}
-    return json.loads(brace.group(0))             # ← real dict!
+    return json.loads(brace.group(0))            
 
-# ------------------------------------------------------------------
+
 def analyze_food(image: Image.Image) -> dict:
     """Call Gemini, make sure we come back with a dict, not a string."""
     prompt = (
@@ -51,9 +48,8 @@ def analyze_food(image: Image.Image) -> dict:
 
     model   = genai.GenerativeModel('gemini-1.5-flash')
     result  = model.generate_content([prompt, image])
-    return extract_json(result.text)              # ← dict, not str
+    return extract_json(result.text)             
 
-# ------------------------------------------------------------------
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -69,8 +65,8 @@ def analyze() -> Tuple[dict, int]:
 
     try:
         with Image.open(file.stream) as img:
-            data = analyze_food(img)              # already a dict
-            return jsonify(data)                  # ✨ no double‑encoding
+            data = analyze_food(img)              
+            return jsonify(data)                  
     except Exception as e:
         app.logger.exception("Analysis failed")
         return jsonify(error=f"Analysis failed: {e}"), 500

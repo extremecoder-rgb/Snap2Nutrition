@@ -84,7 +84,7 @@ h1 {
 }
 
 .result-section {
-    background: #e0f2f7; /* Light blue background for sections */
+    background: #e0f2f7; 
     padding: 18px;
     border-radius: 10px;
     margin-bottom: 15px;
@@ -93,7 +93,7 @@ h1 {
 }
 
 .result-section h3 {
-    color: #0077b6; /* A slightly darker blue for headings */
+    color: #0077b6; 
     margin-top: 0;
     margin-bottom: 10px;
     font-size: 1.3rem;
