@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Snap2Nutrition</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="container">
+        <h1>🍎 Snap2Nutrition</h1>
+
+        <div class="upload-box">
+            <!-- Take Photo Button (Camera) -->
+            <input 
+                type="file" 
+                id="cameraInput" 
+                accept="image/*" 
+                capture="environment" 
+                style="display:none;"
+            >
+            <button type="button" class="upload-btn" id="takePhotoBtn">
+                📷 Take a Photo
+            </button>
+
+            <!-- Upload Image Button (Gallery/File) -->
+            <input 
+                type="file" 
+                id="uploadInput" 
+                accept="image/*" 
+                style="display:none;"
+            >
+            <button type="button" class="upload-btn" id="uploadImageBtn">
+                🖼️ Upload Image
+            </button>
+
+            <img id="preview" style="display:none; margin-top:20px; max-width:100%; border-radius:10px; box-shadow:0 2px 8px rgba(0,0,0,0.08);" alt="Image Preview"/>
+        </div>
+
+        <div id="results" class="hidden">
+            <h2>Nutrition Analysis</h2>
+            <div id="totalCalories" class="result-section"></div>
+            <div id="healthRating" class="result-section"></div>
+            <div id="foodItems" class="result-section"></div>
+            <div id="micronutrients" class="result-section"></div>
+        </div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

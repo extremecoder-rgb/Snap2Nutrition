@@ -1,0 +1,128 @@
+body {
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    background: linear-gradient(120deg, #f5f7fa 0%, #c9e7ff 100%);
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 480px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.10);
+    padding: 32px 28px 38px 28px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.2rem;
+    margin-bottom: 1.2rem;
+    color: #2d6a4f;
+    letter-spacing: 0.5px;
+}
+
+.upload-box {
+    border: 2px dashed #90e0ef;
+    background: #f1faee;
+    padding: 2.5rem 1rem;
+    margin: 2rem 0 1.5rem 0;
+    border-radius: 12px;
+    transition: border-color 0.3s;
+}
+
+.upload-box:hover {
+    border-color: #00b4d8;
+}
+
+.upload-btn {
+    background: linear-gradient(90deg, #48cae4 0%, #00b4d8 100%);
+    color: #fff;
+    padding: 12px 32px;
+    border-radius: 7px;
+    font-size: 1.08rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,180,216,0.10);
+    transition: background 0.2s, transform 0.2s;
+    display: inline-block;
+    margin: 0 10px 10px 10px;
+}
+
+.upload-btn:hover {
+    background: linear-gradient(90deg, #00b4d8 0%, #48cae4 100%);
+    transform: scale(1.04);
+}
+
+#preview {
+    margin-top: 20px;
+    max-width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+#results {
+    background: #e9f5db;
+    padding: 22px 14px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(44, 62, 80, 0.07);
+    margin-top: 1.5rem;
+    text-align: left;
+    word-break: break-word;
+}
+
+#analysisResult {
+    font-family: 'Fira Mono', 'Consolas', monospace;
+    font-size: 1.04rem;
+    color: #22223b;
+    white-space: pre-wrap;
+}
+
+.hidden {
+    display: none;
+}
+
+.result-section {
+    background: #e0f2f7; /* Light blue background for sections */
+    padding: 18px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    text-align: left;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+}
+
+.result-section h3 {
+    color: #0077b6; /* A slightly darker blue for headings */
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+    border-bottom: 1px solid #ade8f4;
+    padding-bottom: 8px;
+}
+
+.food-item-card {
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border: 1px solid #e0e0e0;
+}
+
+.food-item-card h4 {
+    color: #2d6a4f;
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 1.15rem;
+}
+
+.food-item-card p {
+    margin-bottom: 5px;
+    font-size: 0.95rem;
+    color: #444;
+}
+
+.food-item-card p:last-child {
+    margin-bottom: 0;
+}
