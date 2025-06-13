@@ -1,1 +1,1 @@
-web: gunicorn app:app --timeout 120 --workers 2 --threads 2 --worker-class gthread --max-requests 1000 --max-requests-jitter 50 
+web: gunicorn app:app --timeout 180 --workers 1 --threads 4 --worker-class gthread --max-requests 1000 --max-requests-jitter 50 --log-level info --access-logfile - --error-logfile - --capture-output 
